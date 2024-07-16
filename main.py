@@ -10,13 +10,14 @@ level = []
 cursors = [pygame.cursors.arrow, pygame.cursors.diamond, pygame.cursors.broken_x, pygame.cursors.tri_left, pygame.cursors.tri_right]
 colors = [ 'black','red','blue', 'red', 'yellow', 'green', 'purple', 'pink', 'cyan', 'brown']
 color = 'black'
-size = 35
+size = 25
 
 
 
 pygame.init()
 active = False
 text = ''
+font = pygame.font.Font('freesansbold.ttf', 40)
 modes = pygame.display.list_modes()
 WIDTH, HEIGHT = modes[0]
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -45,6 +46,12 @@ def draw(x_pos, y_pos, color, size):
     timer.tick(100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
 
 while running:
+    size_text = font.render('Size : ' + str(size), True, 'black', 'cyan')
+    color_text = font.render('Color : ' + str(color), True, color, "white")
+    color_reset_text = font.render('Color : ' + str(color), True, 'white', "white")
+    clear_text = font.render('Size : ' + str(size), True, 'white', 'white')
+    screen.blit(size_text, (500, 0))
+    screen.blit(color_text, (800, 0))
     pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,7 +59,10 @@ while running:
         if event.type == pygame.MOUSEWHEEL:
             if event.y > event.x:
                 size += 1
-            else : size -= 1
+                screen.blit(clear_text, (620, 0))
+            else :
+                size -= 1
+                screen.blit(clear_text, (620, 0))
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_TAB:
                 cursor_count += 1
@@ -71,24 +81,34 @@ while running:
     rect.fill(color)
     if keys[pygame.K_1]:
         color = colors[0]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_2]:
         color = colors[1]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_3]:
         color = colors[2]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_4]:
         color = colors[3]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_5]:
         color = colors[4]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_6]:
         color = colors[5]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_7]:
         color = colors[6]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_8]:
         color = colors[7]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_9]:
         color = colors[8]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_0]:
         color = colors[9]
+        screen.blit(color_reset_text, (800, 0))
     if keys[pygame.K_r]:
         screen.fill('white')
         pygame.display.flip()
@@ -97,19 +117,19 @@ while running:
         running = False
     if keys[pygame.K_b]:
         size = 35
-        color = "white"
+        color = "black"
     if keys[pygame.K_s]:
         screen.blit(q, pygame.mouse.get_pos())
     if keys[pygame.K_SPACE]:
         screen.blit(rect, pygame.mouse.get_pos())
     if keys[pygame.K_d]:
         line_point1, line_point2 = pygame.mouse.get_pos()
-        pygame.draw.circle(screen, color , pygame.mouse.get_pos(), 10)
+        pygame.draw.circle(screen, color , pygame.mouse.get_pos(), 6)
     if keys[pygame.K_l]:
         if line_point1 != 0 and line_point2 != 0:
-            pygame.draw.circle(screen, color, pygame.mouse.get_pos(), 10)
+            pygame.draw.circle(screen, color, pygame.mouse.get_pos(), 6)
             time.sleep(0.1)
-            pygame.draw.line(screen, color, (line_point1, line_point2), pygame.mouse.get_pos())
+            pygame.draw.line(screen, color, (line_point1, line_point2), pygame.mouse.get_pos(),size - 33)
     if cursor_count < 0:
         cursor_count = 0
     cursor_count = cursor_count % 4
